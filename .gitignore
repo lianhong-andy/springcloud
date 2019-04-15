@@ -7,9 +7,3 @@
 .idea
 *.iml
 /bin
-consumer/src/main/resources/
-consumer/src/test/
-consumer/target/
-src/
-user_service/src/test/
-user_service/target/
