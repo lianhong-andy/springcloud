@@ -1,0 +1,17 @@
+server:
+  port: 8082
+  servlet:
+    path: /
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springboot
+    username: root
+    password: root
+mybatis:
+  type-aliases-package: com.andy.user.pojo
+
+#控制日志的级别 key：value（包名：日志级别）
+logging:
+  level:
+    com.andy: debug
+
