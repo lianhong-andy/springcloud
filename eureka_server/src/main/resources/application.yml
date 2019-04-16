@@ -1,0 +1,13 @@
+server:
+  port: 10086
+spring:
+  application:
+    name: eureka_server
+eureka:
+  client:
+    service-url:
+      register-with-eureka: false #是否将自己注册到Eureka服务中，本身就是所以无需注册
+      fetch-registry: false #是否从Eureka中获取注册信息
+      defaultZone: http://127.0.0.1:${server.port}/eureka
+  instance:
+    prefer-ip-address: true
