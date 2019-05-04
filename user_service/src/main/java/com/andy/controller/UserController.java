@@ -61,7 +61,7 @@ public class UserController {
     public User getUserById(@PathVariable("id") Long id){
         User user = null;
         try {
-//            Thread.sleep(2000L);
+            Thread.sleep(2000L);
 //            Thread.sleep(1000L);
             user = userService.getUserById(id);
         } catch (Exception e) {

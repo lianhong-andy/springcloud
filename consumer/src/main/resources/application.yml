@@ -17,6 +17,12 @@ eureka:
     prefer-ip-address: true
 #    hostname: 127.0.0.1
     ip-address: 127.0.0.1
+feign:
+  hystrix:
+    enabled: true
+#ribbon:
+#  ConnectionTimeOut: 500 #默认1000 1s
+#  ReadTimeOut: 500 #默认2s
 hystrix:
   commond:
     default:

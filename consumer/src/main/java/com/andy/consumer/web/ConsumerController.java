@@ -2,6 +2,7 @@ package com.andy.consumer.web;
 
 import com.andy.consumer.pojo.MainResult;
 import com.andy.consumer.pojo.User;
+import com.andy.consumer.web.client.UserClient;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -19,22 +20,20 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
 @RestController
 @RequestMapping("/consumer")
-@DefaultProperties(defaultFallback = "defaultFallback")//使用通用的降级方法
+//@DefaultProperties(defaultFallback = "defaultFallback")//使用通用的降级方法
 @Slf4j
 public class ConsumerController {
-    @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
-    private DiscoveryClient discoveryClient;
+//    @Autowired
+//    private RestTemplate restTemplate;
+//    @Autowired
+//    private DiscoveryClient discoveryClient;
 //    @Autowired
 //    private RibbonLoadBalancerClient client;
-
+    @Autowired
+    private UserClient userClient;
+/*
     @GetMapping("/{id}")
 //    @HystrixCommand(fallbackMethod = "queryAllUserFallback")
 //    @HystrixCommand(commandProperties = {
@@ -65,36 +64,29 @@ public class ConsumerController {
         User user = restTemplate.getForObject(url, User.class);
         result.setData(user);
         return result;
+    }*/
+
+    @GetMapping("/{id}")
+    public User queryById(@PathVariable("id") Long id){
+        if(id%2==0){
+            throw new RuntimeException("抛异常");
+        }
+        return userClient.queryById(id);
     }
 
-    public MainResult defaultFallback(){
+
+    /*public MainResult defaultFallback(){
         return new MainResult("服务器忙");
-    }
+    }*/
 
     public static void main(String[] args) throws URISyntaxException {
         URI uri = new URI("http://user-service/user/1");
+        URI uri2 = new URI("http://user_service/user/1");
         String host = uri.getHost();
-        System.out.println("host = " + host);
+        System.out.println("host = " + host);//user-service
+        host = uri2.getHost();
+        System.out.println("host = " + host);//null
     }
 
-    @RequestMapping("/queryByIds")
-    public List<User> queryAllUser(String ids){
-        //根据服务id取出ip和端口
-        String[] idArray = ids.split(",");
-        List idList = CollectionUtils.arrayToList(idArray);
-        List<ServiceInstance> instances = discoveryClient.getInstances("user_service");
-        ServiceInstance instance = instances.get(0);
-        ArrayList<User> users = new ArrayList<>();
-        idList.forEach(new Consumer<String>() {
-            @Override
-            public void accept(String id) {
-                String url = "http://"+instance.getHost()+":"+instance.getPort()+"/user/"+id;
-                log.info("url:{}",url);
-                User user = restTemplate.getForObject(url, User.class);
-                users.add(user);
-            }
-        });
-        return users;
-    }
 
 }
