@@ -11,3 +11,10 @@ eureka:
       defaultZone: http://127.0.0.1:${server.port}/eureka
   instance:
     prefer-ip-address: true
+#    hostname: andy.lian.com
+    ip-address: 127.0.0.1
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+  server:
+    eviction-interval-timer-in-ms: 60
+    enable-self-preservation: false

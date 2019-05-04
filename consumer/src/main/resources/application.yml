@@ -3,10 +3,24 @@ server:
 spring:
   application:
     name: consumer
+#  cloud:
+#    discovery:
+#      client:
+#        simple:
+#          local:
+#            service-id: user_service
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:10086/eureka
+      defaultZone: http://127.0.0.1:10086/eureka #,http://127.0.0.1:10087/eureka
   instance:
     prefer-ip-address: true
-    hostname: 127.0.0.1
+#    hostname: 127.0.0.1
+    ip-address: 127.0.0.1
+hystrix:
+  commond:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

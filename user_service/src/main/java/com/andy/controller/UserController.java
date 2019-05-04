@@ -59,7 +59,17 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable("id") Long id){
-        return userService.getUserById(id);
+        User user = null;
+        try {
+//            Thread.sleep(2000L);
+//            Thread.sleep(1000L);
+            user = userService.getUserById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("出现异常了：{}",e.getMessage(),e);
+        }
+        return user;
+
     }
 
 
