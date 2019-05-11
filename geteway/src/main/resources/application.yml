@@ -1,0 +1,38 @@
+server:
+  port: 10010
+zuul:
+  routes:  #配置路由规则
+#    user-service: /user-service/** #自定义配置，简写成key-value形式（不写也行，默认就是这个）
+    consumer: #路由id 随意写
+      path: /consumer/**  #这里是映射路径，当访问/user-service时会转发到http://127.0.0.1:8082
+      # url: http://127.0.0.1:8082 #映射路径对应的实际url地址
+      serviceId: consumer #服务id
+  ignored-services:
+    # -consumer #禁止访问的服务数组，可配置多个
+#  strip-prefix: false #取出路由前缀
+#  prefix: /api #路由前缀
+
+ribbon:
+  ConnectionTimeout: 500 #默认1000 1s
+  ReadTimeout: 2000 #默认2s
+  MaxAutoRetriesNextServer: 3 #重试次数
+hystrix:
+  commond:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+      prefer-ip-address: true
+      ip-address: 127.0.0.1
+spring:
+  application:
+    name: gateway
+
