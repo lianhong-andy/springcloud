@@ -24,7 +24,7 @@ eureka:
     prefer-ip-address: true
 #    hostname: andy.lian.comI
     ip-address: 127.0.0.1
-#    随机负载均衡配置
+#    随机负载均衡配置 test
 user-service:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
