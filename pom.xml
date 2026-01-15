@@ -32,7 +32,7 @@
         <mysql.version>5.1.23</mysql.version>
         <pageHelper.starter.version>1.2.5</pageHelper.starter.version>
         <fastjson.version>1.2.4</fastjson.version>
-        <apache-commons-lang3.version>3.8.1</apache-commons-lang3.version>
+        <apache-commons-lang3.version>3.18.0</apache-commons-lang3.version>
     </properties>
 
     <dependencyManagement>
